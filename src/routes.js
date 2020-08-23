@@ -2,7 +2,7 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
-
+import { StatusBar } from "react-native";
 import PayButton from "./components/PayButtom";
 import Home from "./pages/home";
 import Wallet from "./pages/wallet";
@@ -31,69 +31,72 @@ const icons = {
 };
 
 const Routes = () => (
-  <NavigationContainer>
-    <BottomNavigation.Navigator
-      initialRouteName="home"
-      screenOptions={({ route, navigation }) => ({
-        tabBarIcon: ({ color, size, focused }) => {
-          if (route.name == "pay") {
-            return (
-              <PayButton
-                onPress={() => navigation.navigate("pay")}
-                focused={focused}
-              />
-            );
-          }
-          const { lib: Icon, iconName: name } = icons[route.name];
-          return <Icon name={name} size={size} color={color} />;
-        },
-      })}
-      tabBarOptions={{
-        style: {
-          backgroundColor: "#131418",
-          borderTopColor: "rgba(255,255,255,0.2)",
-        },
-        activeTintColor: "#fff",
-        inactiveTintColor: "#92929c",
-      }}
-    >
-      <BottomNavigation.Screen
-        name="home"
-        component={Home}
-        options={{
-          title: "Inicio",
+  <>
+    <StatusBar barStyle="light-content" backgroundColor="#000" />
+    <NavigationContainer>
+      <BottomNavigation.Navigator
+        initialRouteName="home"
+        screenOptions={({ route, navigation }) => ({
+          tabBarIcon: ({ color, size, focused }) => {
+            if (route.name == "pay") {
+              return (
+                <PayButton
+                  onPress={() => navigation.navigate("pay")}
+                  focused={focused}
+                />
+              );
+            }
+            const { lib: Icon, iconName: name } = icons[route.name];
+            return <Icon name={name} size={size} color={color} />;
+          },
+        })}
+        tabBarOptions={{
+          style: {
+            backgroundColor: "#131418",
+            borderTopColor: "rgba(255,255,255,0.2)",
+          },
+          activeTintColor: "#fff",
+          inactiveTintColor: "#92929c",
         }}
-      />
-      <BottomNavigation.Screen
-        name="wallet"
-        component={Wallet}
-        options={{
-          title: "Carteira",
-        }}
-      />
-      <BottomNavigation.Screen
-        name="pay"
-        component={Pay}
-        options={{
-          title: "",
-        }}
-      />
-      <BottomNavigation.Screen
-        name="notifications"
-        component={Pay}
-        options={{
-          title: "Notificações",
-        }}
-      />
-      <BottomNavigation.Screen
-        name="settings"
-        component={Pay}
-        options={{
-          title: "ajustes",
-        }}
-      />
-    </BottomNavigation.Navigator>
-  </NavigationContainer>
+      >
+        <BottomNavigation.Screen
+          name="home"
+          component={Home}
+          options={{
+            title: "Inicio",
+          }}
+        />
+        <BottomNavigation.Screen
+          name="wallet"
+          component={Wallet}
+          options={{
+            title: "Carteira",
+          }}
+        />
+        <BottomNavigation.Screen
+          name="pay"
+          component={Pay}
+          options={{
+            title: "",
+          }}
+        />
+        <BottomNavigation.Screen
+          name="notifications"
+          component={Pay}
+          options={{
+            title: "Notificações",
+          }}
+        />
+        <BottomNavigation.Screen
+          name="settings"
+          component={Pay}
+          options={{
+            title: "ajustes",
+          }}
+        />
+      </BottomNavigation.Navigator>
+    </NavigationContainer>
+  </>
 );
 
 export default Routes;
